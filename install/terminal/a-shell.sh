@@ -3,6 +3,7 @@
 # Configure the bash shell using Omakub defaults
 [ -f ~/.bashrc ] && mv ~/.bashrc ~/.bashrc.bak
 cp ~/.local/share/omakub/configs/bashrc ~/.bashrc
+mkdir -p ~/dotfiles/bash
 
 # Load the PATH for use later in the installers
 source ~/.local/share/omakub/defaults/bash/shell
