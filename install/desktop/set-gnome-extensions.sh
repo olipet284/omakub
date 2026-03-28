@@ -12,6 +12,9 @@ gnome-extensions disable ding@rastersoft.com
 # Pause to assure user is ready to accept confirmations
 gum confirm "To install Gnome extensions, you need to accept some confirmations. Ready?"
 
+# Install media codex
+sudo apt -y install ubuntu-restricted-extras
+
 # Install new extensions
 gext install tactile@lundal.io
 gext install just-perfection-desktop@just-perfection
