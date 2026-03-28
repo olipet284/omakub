@@ -8,8 +8,14 @@ if [[ "$XDG_CURRENT_DESKTOP" == *"GNOME"* ]]; then
 fi
 
 AVAILABLE_LANGUAGES=("Ruby on Rails" "Node.js" "Go" "PHP" "Python" "Elixir" "Rust" "Java")
-SELECTED_LANGUAGES=""
+SELECTED_LANGUAGES="Python"
 export OMAKUB_FIRST_RUN_LANGUAGES=$(gum choose "${AVAILABLE_LANGUAGES[@]}" --no-limit --selected "$SELECTED_LANGUAGES" --height 10 --header "Select programming languages")
+
+if [[ "$SELECTED_LANGUAGES" == *"Python"* ]]; then
+  AVAILABLE_PYTHON_VERSIONS=("3.10" "3.11" "3.12" "3.13" "3.14")
+  SELECTED_PYTHON_VERSIONS="3.10","3.11","3.12","3.13","3.14"
+  export OMAKUB_FIRST_RUN_PYTHON_VERSIONS=$(gum choose "${AVAILABLE_PYTHON_VERSIONS[@]}" --no-limit --selected "$SELECTED_PYTHON_VERSIONS" --height 7 --header "Select Python versions")
+fi
 
 AVAILABLE_DBS=("MySQL" "Redis" "PostgreSQL")
 SELECTED_DBS=""

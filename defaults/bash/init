@@ -14,3 +14,15 @@ if command -v fzf &> /dev/null; then
     source /usr/share/doc/fzf/examples/key-bindings.bash
   fi
 fi
+
+if command -v uv &> /dev/null; then
+  eval "$($HOME/.local/bin/uv generate-shell-completion bash)"
+fi
+
+if command -v uvx &> /dev/null; then
+  eval "$($HOME/.local/bin/uvx generate-shell-completion bash)"
+fi
+
+if [[ -f /usr/local/share/venv/venv ]]; then
+  source /usr/local/share/venv/venv
+fi

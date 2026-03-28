@@ -3,9 +3,19 @@
 # Install default programming languages
 if [[ -v OMAKUB_FIRST_RUN_LANGUAGES ]]; then
   languages=$OMAKUB_FIRST_RUN_LANGUAGES
+  if [[ "$OMAKUB_FIRST_RUN_LANGUAGES" == *"Python"* ]]; then
+    python_versions=$OMAKUB_FIRST_RUN_PYTHON_VERSIONS
+  fi
 else
   AVAILABLE_LANGUAGES=("Ruby on Rails" "Node.js" "Go" "PHP" "Python" "Elixir" "Rust" "Java")
   languages=$(gum choose "${AVAILABLE_LANGUAGES[@]}" --no-limit --height 10 --header "Select programming languages")
+
+  if [[ "$languages" == *"Python"* ]]; then
+    AVAILABLE_PYTHON_VERSIONS=("3.10" "3.11" "3.12" "3.13" "3.14")
+    SELECTED_PYTHON_VERSIONS="3.10","3.11","3.12","3.13","3.14"
+    python_versions=$(gum choose "${AVAILABLE_PYTHON_VERSIONS[@]}" --no-limit --selected "$SELECTED_PYTHON_VERSIONS" --height 7 --header "Select Python versions")
+  fi
+
 fi
 
 if [[ -n "$languages" ]]; then
@@ -29,7 +39,17 @@ if [[ -n "$languages" ]]; then
       rm composer-setup.php
       ;;
     Python)
-      mise use --global python@latest
+      sudo add-apt-repository ppa:deadsnakes/ppa -y && sudo apt update
+      for version in $python_versions; do
+        sudo apt -y install python${version}-venv --no-install-recommends
+        python${version} -m ensurepip --upgrade
+      done
+
+      gum confirm "Do you want to install uv for Python package management?" && \
+      source ~/.local/share/omakub/install/terminal/optional/uv.sh
+
+      gum confirm "Do you want to install venv-cli for Python virtual environment management?" && \
+      source ~/.local/share/omakub/install/terminal/optional/venv-cli.sh
       ;;
     Elixir)
       mise use --global erlang@latest
