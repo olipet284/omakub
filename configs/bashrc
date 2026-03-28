@@ -1,4 +1,7 @@
 source ~/.local/share/omakub/defaults/bash/rc
+for file in ~/dotfiles/bash/*; do
+    source $file
+done
 
 # Editor used by CLI
 export EDITOR="nvim"
