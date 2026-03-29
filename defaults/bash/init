@@ -26,3 +26,5 @@ fi
 if [[ -f /usr/local/share/venv/venv ]]; then
   source /usr/local/share/venv/venv
 fi
+
+source "$HOME/.cargo/env"
